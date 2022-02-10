@@ -6,17 +6,19 @@ import { Token, TokenContract, Owner, All, OwnerPerTokenContract } from '../gene
 
 let ZERO_ADDRESS_STRING = '0x0000000000000000000000000000000000000000';
 
-let ZERO_ADDRESS: Bytes = Bytes.fromHexString(ZERO_ADDRESS_STRING) as Bytes;
+let ZERO_ADDRESS: Bytes = Bytes.fromHexString(ZERO_ADDRESS_STRING);
 let ZERO = BigInt.fromI32(0);
 let ONE = BigInt.fromI32(1);
 
 
 function toBytes(hexString: String): Bytes {
-    let result = new Uint8Array(hexString.length/2);
+    let result = new Bytes(hexString.length/2);
+    let temp: u32 = 0
     for (let i = 0; i < hexString.length; i += 2) {
-        result[i/2] = parseInt(hexString.substr(i, 2), 16) as u32;
+        temp = parseInt(hexString.substr(i, 2), 16)
+        result[i/2] = temp;
     }
-    return result as Bytes;
+    return result;
 }
 
 function supportsInterface(contract: EIP721, interfaceId: String, expected : boolean = true) : boolean {
